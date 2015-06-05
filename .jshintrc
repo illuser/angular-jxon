@@ -1,0 +1,16 @@
+{
+  "maxerr"        : 50,
+  "camelcase"     : true,
+  "forin"         : true,
+  "freeze"        : true,
+  "immed"         : true,
+  "indent"        : 2,
+  "newcap"        : true,
+  "plusplus"      : true,
+  "undef"         : true,
+  "strict"        : false,
+  "asi"           : false,
+  "esnext"        : true,
+  "browser"       : true,
+  "browserify"    : true
+}
