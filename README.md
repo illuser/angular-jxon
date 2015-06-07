@@ -78,7 +78,9 @@ MyApp.controller('xmlCtrl', ['$scope', '$http', '$JXON', function($scope, $http,
 ### #xmlToJs(oXMLParent)
 #### #build(oXMLParent)
 Converts an XML Document to a JSON object
+
 @param oXMLParent - an XML Document to be transformed to JSON
+
 @returns - a JSON object
 ```javascript
 var xmlString = '<current><city id="2643743" name="London"></city></current>';
@@ -98,7 +100,9 @@ json === {
 
 ### #xmlToString(xmlObj)
 Converts an XML Document to a string representing an XML Document
+
 @param xmlObj - an XML Document to be transformed into an XML string
+
 @returns - a string representing the XML Document
 ```javascript
 var xmlString = '<current><city id="2643743" name="London"></city></current>';
@@ -112,7 +116,9 @@ xmlStringConverted === xmlString;
 ### #jsToXml(oObjTree)
 #### #unbuild(oObjTree)
 Converts a JSON Object to an XML Document
+
 @param oObjTree - a JSON Object to be transformed to an XML Document
+
 @return - an XML Document
 ```javascript
 var jsonDoc = { "current": { "city": { "@name": "London", "@id": 2643743 }}};
@@ -126,7 +132,9 @@ xml === new DOMParser().parseFromString(xmlString, 'application/xml');
 ### #jsToString(oObjTree)
 #### #stringify(oObjTree)
 Converts a JSON Object to a string representing an XML Document
+
 @param oObjTree - a JSON Object to be transformed into an XML string
+
 @return - a string representing the XML Document
 ```javascript
 var jsonDoc = { "current": { "city": { "@name": "London", "@id": 2643743 }}};
@@ -139,7 +147,9 @@ xml === xmlString;
 
 ### #stringToXml(xmlString)
 Converts a string representing an XML Document to an XML Document
+
 @param xmlString - A string representing an XML Document to be converted to an XML Document
+
 @return - an XML Document
 ```javascript
 var xmlString = '<current><city id="2643743" name="London"></city></current>';
@@ -153,7 +163,9 @@ xmlDoc === xmlConverted;
 
 ### #stringToJs(str)
 Converts an string representing an XML Document to a JSON Object
+
 @param str - an XML string to convert to a JSON object
+
 @return - a JSON object
 ```javascript
 var xmlString = '<current><city id="2643743" name="London"></city></current>';
