@@ -33,7 +33,7 @@ git clone https://github.com/illuser/angular-jxon.git
 
 'use strict';
 
-var MyApp = angular.module('myApp', ['angularJXON']);
+var MyApp = angular.module('myApp', ['angular-jxon']);
 
 
 MyApp.config(['$JXONProvider', function($JXONProvider) {
