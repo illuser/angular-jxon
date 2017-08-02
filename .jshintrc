@@ -1,16 +1,19 @@
 {
   "maxerr"        : 50,
   "camelcase"     : true,
+  "eqeqeq"        : true,
+  "esversion"     : 6,
   "forin"         : true,
   "freeze"        : true,
   "immed"         : true,
   "indent"        : 2,
   "newcap"        : true,
+  "nonbsp"        : true,
   "plusplus"      : true,
   "undef"         : true,
-  "strict"        : false,
+  "strict"        : "global",
   "asi"           : false,
-  "esnext"        : true,
   "browser"       : true,
-  "browserify"    : true
+  "devel"         : true,
+  "module"        : true
 }

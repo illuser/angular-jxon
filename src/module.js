@@ -1,15 +1,13 @@
 /**
 * @name angular-jxon
-* @author Joseph Quinn <lykouleon.eve@gmail.com>
+* @author Joseph Quinn <quinn.josephr@protonmail.com>
 * @license MIT
-* @requires angular/angular@>=1.3.0 <2
+* @requires angular/angular@>=1.3.0 < 2
 * @exports angular-jxon.name
 */
-// If DOMParser is missing, shim it via the xmldom library
+// Ensure DOMParser is available
 if(typeof(window.DOMParser) === 'undefined') {
-  window.DOMParser = require('xmldom').DOMParser;
-  window.document = {};
-  window.document.implementation = new(require('xmldom').DOMImplementation)();
+  console.error('DOMParser is unavailable. Please load a DOMParser shim before the angular-jxon module');
 }
 /**
 * @class EmptyTree
@@ -209,8 +207,7 @@ class JXONService {
     if (typeof xmlObj.xml !== "undefined") {
       return xmlObj.xml;
     } else {
-      if (typeof window.XMLSerializer === "undefined") window.XMLSerializer = require("xmldom").XMLSerializer;
-      return (new window.XMLSerializer()).serializeToString(xmlObj);
+      return new window.XMLSerializer().serializeToString(xmlObj);
     }
   }
   /**
