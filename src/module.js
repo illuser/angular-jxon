@@ -29,9 +29,9 @@ class EmptyTree {
   valueOf() { return null; }
 }
 /**
-* @var {Object} cfg
+* @let {Object} cfg
 */
-var cfg =  {
+const cfg =  {
   sValueProp: 'keyValue',
   sAttrProp: 'keyAttributes',
   sAttrsPref: '@',
@@ -72,16 +72,16 @@ const parseText = function(sValue) {
 * @return {Object}
 */
 const createObjTree = function(oParentNode, nVerb, bFreeze, bNesteAttr) {
-  var
+  let
     nLevelStart = cfg.aCache.length, bChildren = oParentNode.hasChildNodes(),
     bAttributes = oParentNode.nodeType === oParentNode.ELEMENT_NODE && oParentNode.hasAttributes(), bHighVerb = Boolean(nVerb & 2);
 
-  var
+  let
     sProp, vContent, nLength = 0, sCollectedTxt = "",
     vResult = bHighVerb ? {} : /* put here the default value for empty nodes: */ true;
 
   if (bChildren) {
-    for (var oNode, nItem = 0; nItem < oParentNode.childNodes.length; nItem = nItem + 1) {
+    for (let oNode, nItem = 0; nItem < oParentNode.childNodes.length; nItem = nItem + 1) {
       oNode = oParentNode.childNodes.item(nItem);
       if (oNode.nodeType === 4) { sCollectedTxt += oNode.nodeValue; } /* nodeType is "CDATASection" (4) */
       else if (oNode.nodeType === 3) { sCollectedTxt += oNode.nodeValue.trim(); } /* nodeType is "Text" (3) */
@@ -89,11 +89,11 @@ const createObjTree = function(oParentNode, nVerb, bFreeze, bNesteAttr) {
     }
   }
 
-  var nLevelEnd = cfg.aCache.length, vBuiltVal = parseText(sCollectedTxt);
+  let nLevelEnd = cfg.aCache.length, vBuiltVal = parseText(sCollectedTxt);
 
   if (!bHighVerb && (bChildren || bAttributes)) { vResult = nVerb === 0 ? objectify(vBuiltVal) : {}; }
 
-  for (var nElId = nLevelStart; nElId < nLevelEnd; nElId = nElId + 1) {
+  for (let nElId = nLevelStart; nElId < nLevelEnd; nElId = nElId + 1) {
     sProp = cfg.aCache[nElId].nodeName;
     if (cfg.sLowCase) sProp = sProp.toLowerCase();
     vContent = createObjTree(cfg.aCache[nElId], nVerb, bFreeze, bNesteAttr);
@@ -107,11 +107,11 @@ const createObjTree = function(oParentNode, nVerb, bFreeze, bNesteAttr) {
   }
 
   if (bAttributes) {
-    var
+    let
       nAttrLen = oParentNode.attributes.length,
       sAPrefix = bNesteAttr ? "" : cfg.sAttrsPref, oAttrParent = bNesteAttr ? {} : vResult;
 
-    for (var oAttrib, oAttribName, nAttrib = 0; nAttrib < nAttrLen; nLength = nLength + 1, nAttrib = nAttrib + 1) {
+    for (let oAttrib, oAttribName, nAttrib = 0; nAttrib < nAttrLen; nLength = nLength + 1, nAttrib = nAttrib + 1) {
       oAttrib = oParentNode.attributes.item(nAttrib);
       oAttribName = oAttrib.name;
       if (cfg.sLowCase) oAttribName = oAttribName.toLowerCase();
@@ -144,7 +144,7 @@ const createObjTree = function(oParentNode, nVerb, bFreeze, bNesteAttr) {
 * @param {Object} oParentObj
 */
 const loadObjTree = function(oXMLDoc, oParentEl, oParentObj) {
-  var vValue, oChild;
+  let vValue, oChild;
 
   if (oParentObj.constructor === String || oParentObj.constructor === Number || oParentObj.constructor === Boolean) {
     oParentEl.appendChild(oXMLDoc.createTextNode(oParentObj.toString())); /* verbosity level is 0 or 1 */
@@ -153,7 +153,7 @@ const loadObjTree = function(oXMLDoc, oParentEl, oParentObj) {
     oParentEl.appendChild(oXMLDoc.createTextNode(oParentObj.toGMTString()));
   }
 
-  for (var sName in oParentObj) {
+  for (let sName in oParentObj) {
     if(oParentObj.hasOwnProperty(sName)) {
 
       vValue = oParentObj[sName];
@@ -162,7 +162,7 @@ const loadObjTree = function(oXMLDoc, oParentEl, oParentObj) {
       if (sName === cfg.sValueProp) {
         if (vValue !== null && vValue !== true) { oParentEl.appendChild(oXMLDoc.createTextNode(vValue.constructor === Date ? vValue.toGMTString() : String(vValue))); }
       } else if (sName === cfg.sAttrProp) { /* verbosity level is 3 */
-        for (var sAttrib in vValue) { 
+        for (let sAttrib in vValue) { 
           if(vValue.hasOwnProperty(sAttrib)) {
             oParentEl.setAttribute(sAttrib, vValue[sAttrib]);
           }
@@ -170,7 +170,7 @@ const loadObjTree = function(oXMLDoc, oParentEl, oParentObj) {
       } else if (sName.charAt(0) === cfg.sAttrsPref && sName !== cfg.sAttrsPref+'xmlns') {
         oParentEl.setAttribute(sName.slice(1), vValue);
       } else if (vValue.constructor === Array) {
-        for (var nItem = 0; nItem < vValue.length; nItem = nItem + 1) {
+        for (let nItem = 0; nItem < vValue.length; nItem = nItem + 1) {
           oChild = oXMLDoc.createElementNS(vValue[nItem][cfg.sAttrsPref+'xmlns'] || oParentEl.namespaceURI, sName);
           loadObjTree(oXMLDoc, oChild, vValue[nItem]);
           oParentEl.appendChild(oChild);
@@ -225,7 +225,7 @@ class JXONService {
   * @return {Object}
   */
   jsToXml(oObjTree, sNamespaceURI, sQualifiedName, oDocumentType) {
-    var oNewDoc = window.document.implementation.createDocument(sNamespaceURI || null, sQualifiedName || "", oDocumentType || null);
+    let oNewDoc = window.document.implementation.createDocument(sNamespaceURI || null, sQualifiedName || "", oDocumentType || null);
     loadObjTree(oNewDoc, oNewDoc.documentElement || oNewDoc, oObjTree);
     return oNewDoc;
   }
@@ -268,7 +268,7 @@ class JXONService {
   * @return {Object}
   */
   stringToJs(str) {
-    var xmlObj = this.stringToXml(str);
+    let xmlObj = this.stringToXml(str);
     return this.xmlToJs(xmlObj);
   }
   /**
@@ -280,7 +280,7 @@ class JXONService {
   * @return {Object}
   */
   xmlToJs(oXMLParent, nVerbosity, bFreeze, bNesteAttributes) {
-    var _nVerb = arguments.length > 1 && typeof nVerbosity === "number" ? nVerbosity & 3 : /* put here the default verbosity level: */ 1;
+    let _nVerb = arguments.length > 1 && typeof nVerbosity === "number" ? nVerbosity & 3 : /* put here the default verbosity level: */ 1;
     return createObjTree(oXMLParent, _nVerb, bFreeze || false, arguments.length > 3 ? bNesteAttributes : _nVerb === 3);
   }
 }
@@ -288,7 +288,7 @@ class JXONService {
 * @ngdoc module
 * @name angular-jxon
 */
-var Module = require('angular').module('angular-jxon', ['ng']);
+let Module = require('angular').module('angular-jxon', ['ng']);
 /**
 * @ngdoc provider
 * @name $JXONProvider
@@ -303,7 +303,7 @@ Module.provider('$JXON', function JXONProvider() {
   */
   this.config = function(cfgObject) {
     if(typeof(cfgObject) === 'object') {
-      for(var key in cfgObject){
+      for(let key in cfgObject){
         if(cfgObject.hasOwnProperty(key)) {
           switch(key) {
             case 'valueKey':
