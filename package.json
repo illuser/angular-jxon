@@ -1,6 +1,6 @@
 {
   "name": "angular-jxon",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Joseph Quinn <quinn.josephr@protonmail.com>",
   "description": "An AngularJS wrapper for Mozilla's JXON library (as implemented by https://github.com/tyrasd)",
   "keywords": [
@@ -13,6 +13,7 @@
   "repository": "github:quinnjr/angular-jxon",
   "main": "dist/module.js",
   "browser": "dist/module.min.js",
+  "jsnext:main": "dist/module.es6.js",
   "scripts": {
     "start": "webpack"
   },
@@ -25,6 +26,7 @@
     "babili-webpack-plugin": "^0.1.2",
     "jshint": "^2.9.5",
     "jshint-loader": "^0.8.4",
+    "lodash.mergewith": "^4.6.0",
     "webpack": "^3.4.1"
   },
   "peerDependencies": {
