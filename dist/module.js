@@ -7,7 +7,7 @@
 		exports["angular-jxon"] = factory(require("angular"));
 	else
 		root["angular-jxon"] = factory(root["angular"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_1__) {
+})(window, function(__WEBPACK_EXTERNAL_MODULE_angular__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -54,6 +54,11 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		}
 /******/ 	};
 /******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -69,12 +74,18 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
 /******/
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = "./module.js");
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ "./module.js":
+/*!*******************!*\
+  !*** ./module.js ***!
+  \*******************/
+/*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -462,7 +473,7 @@ var JXONService = function () {
 */
 
 
-var Module = __webpack_require__(1).module('angular-jxon', ['ng']);
+var Module = __webpack_require__(/*! angular */ "angular").module('angular-jxon', ['ng']);
 /**
 * @ngdoc provider
 * @name $JXONProvider
@@ -521,12 +532,18 @@ Module.provider('$JXON', function JXONProvider() {
 module.exports = Module.name;
 
 /***/ }),
-/* 1 */
+
+/***/ "angular":
+/*!**************************!*\
+  !*** external "angular" ***!
+  \**************************/
+/*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_angular__;
 
 /***/ })
-/******/ ]);
+
+/******/ });
 });
 //# sourceMappingURL=module.map

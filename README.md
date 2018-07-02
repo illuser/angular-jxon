@@ -1,6 +1,6 @@
 # Angular-JXON
 
-[![npm version](https://badge.fury.io/js/angular-jxon.svg)](http://badge.fury.io/js/angular-jxon) [![Dependency Status](https://www.versioneye.com/user/projects/5571f7bb3935300021000001/badge.svg?style=flat)](https://www.versioneye.com/user/projects/5571f7bb3935300021000001)
+[![npm version](https://badge.fury.io/js/angular-jxon.svg)](http://badge.fury.io/js/angular-jxon)
 
 An AngularJS provider for Mozilla's JXON library (as implemented by [https://github.com/tyrasd](https://github.com/tyrasd/jxon))
 
@@ -175,6 +175,7 @@ stringToJSON === jsonDoc;
 
 ## Change Log
 
+* v0.2.0 - Updating dependencies.
 * v0.1.1 - Added missing (.babelrc). Fixed Plunkr example.
 * v0.1.0 - Bumped minor version. Updated dependencies. Removed testing infastructure since dependencies no longer were being maintained. Removed Gulp in favor a standalone Webpack build.
 * v0.0.1 - Initial release.

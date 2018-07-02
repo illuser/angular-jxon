@@ -16,18 +16,18 @@ const baseConfig = {
   }],
   devtool: 'source-map',
   module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'jshint-loader',
-        enforce: 'pre',
-        options: {
-          emitErrors: true,
-          failOnHint: true
-        }
-      }
-    ]
+    // rules: [
+    //   {
+    //     test: /\.js$/,
+    //     exclude: /node_modules/,
+    //     loader: 'jshint-loader',
+    //     enforce: 'pre',
+    //     options: {
+    //       emitErrors: true,
+    //       failOnHint: true
+    //     }
+    //   }
+    // ]
   }
 }
 
@@ -40,6 +40,7 @@ const customizer = (destVal, srcVal) => {
 module.exports = (env) => {
   
   const es5Config = merge({}, baseConfig, {
+    mode: 'development',
     output: {
       filename: 'module.js',
       sourceMapFilename: 'module.map'
@@ -56,6 +57,7 @@ module.exports = (env) => {
   }, customizer)
   
   const es5MinifiedConfig = merge({}, baseConfig, {
+    mode: 'production',
     output: {
       filename: 'module.min.js',
       sourceMapFilename: 'module.min.map',
@@ -66,6 +68,7 @@ module.exports = (env) => {
   }, customizer);
   
   const es6Config = merge(undefined, baseConfig, {
+    mode: 'development',
     output: {
       filename: 'module.es6.js',
       sourceMapFilename: 'module.es6.map'
@@ -73,6 +76,7 @@ module.exports = (env) => {
   }, customizer);
   
   const es6MinifiedConfig = merge({}, baseConfig, {
+    mode: 'production',
     output: {
       filename: 'module.es6.min.js',
       sourceMapFilename: 'module.es6.min.map'
