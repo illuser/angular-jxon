@@ -97,7 +97,7 @@ const createObjTree = function(oParentNode, nVerb, bFreeze, bNesteAttr) {
     sProp = cfg.aCache[nElId].nodeName;
     if (cfg.sLowCase) sProp = sProp.toLowerCase();
     vContent = createObjTree(cfg.aCache[nElId], nVerb, bFreeze, bNesteAttr);
-    if (vResult.hasOwnProperty(sProp)) {
+    if (Object.prototype.hasOwnProperty.call(vResult, sProp)) {
       if (vResult[sProp].constructor !== Array) { vResult[sProp] = [vResult[sProp]]; }
       vResult[sProp].push(vContent);
     } else {
@@ -154,7 +154,7 @@ const loadObjTree = function(oXMLDoc, oParentEl, oParentObj) {
   }
 
   for (let sName in oParentObj) {
-    if(oParentObj.hasOwnProperty(sName)) {
+    if(Obejct.prototype.hasOwnProperty.call(oParentObj, sName)) {
 
       vValue = oParentObj[sName];
       if (isFinite(sName) || vValue instanceof Function) { continue; } /* verbosity level is 0 */
@@ -163,7 +163,7 @@ const loadObjTree = function(oXMLDoc, oParentEl, oParentObj) {
         if (vValue !== null && vValue !== true) { oParentEl.appendChild(oXMLDoc.createTextNode(vValue.constructor === Date ? vValue.toGMTString() : String(vValue))); }
       } else if (sName === cfg.sAttrProp) { /* verbosity level is 3 */
         for (let sAttrib in vValue) { 
-          if(vValue.hasOwnProperty(sAttrib)) {
+          if(Object.prototype.hasOwnProperty.call(vValue, sAttrib)) {
             oParentEl.setAttribute(sAttrib, vValue[sAttrib]);
           }
         }
@@ -303,32 +303,32 @@ Module.provider('$JXON', function JXONProvider() {
   */
   this.config = function(cfgObject) {
     if(typeof(cfgObject) === 'object') {
-      for(let key in cfgObject){
-        if(cfgObject.hasOwnProperty(key)) {
+      for(let key in cfgObject) {
+        if(Object.prototype.hasOwnProperty.call(cfgObject, key)) {
           switch(key) {
-            case 'valueKey':
-              cfg.sValueProp = cfgObject.valueKey;
-              break;
-            case 'attrKey':
-              cfg.sAttrProp = cfgObject.attrKey;
-              break;
-            case 'attrPrefix':
-              cfg.sAttrsPref = cfgObject.attrPrefix;
-              break;
-            case 'lowerCaseTags':
-              cfg.sLowCase = cfgObject.lowerCaseTags;
-              break;
-            case 'trueIsEmpty':
-              cfg.sEmptyTrue = cfgObject.trueIsEmpty;
-              break;
-            case 'autoDate':
-              cfg.sAutoDate = cfgObject.autoDate;
-              break;
-            case 'ignorePrefixedNodes':
-              cfg.sIgnorePrefixed = cfgObject.ignorePrefixedNodes;
-              break;
-            default:
-              break;
+          case 'valueKey':
+            cfg.sValueProp = cfgObject.valueKey;
+            break;
+          case 'attrKey':
+            cfg.sAttrProp = cfgObject.attrKey;
+            break;
+          case 'attrPrefix':
+            cfg.sAttrsPref = cfgObject.attrPrefix;
+            break;
+          case 'lowerCaseTags':
+            cfg.sLowCase = cfgObject.lowerCaseTags;
+            break;
+          case 'trueIsEmpty':
+            cfg.sEmptyTrue = cfgObject.trueIsEmpty;
+            break;
+          case 'autoDate':
+            cfg.sAutoDate = cfgObject.autoDate;
+            break;
+          case 'ignorePrefixedNodes':
+            cfg.sIgnorePrefixed = cfgObject.ignorePrefixedNodes;
+            break;
+          default:
+            break;
           }
         }
       }

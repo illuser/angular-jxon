@@ -1,7 +1,7 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 const merge = require('lodash.mergewith');
-const BabiliPlugin = require('babili-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 const baseConfig = {
   context: resolve(__dirname, 'src'),
@@ -16,18 +16,19 @@ const baseConfig = {
   }],
   devtool: 'source-map',
   module: {
-    // rules: [
-    //   {
-    //     test: /\.js$/,
-    //     exclude: /node_modules/,
-    //     loader: 'jshint-loader',
-    //     enforce: 'pre',
-    //     options: {
-    //       emitErrors: true,
-    //       failOnHint: true
-    //     }
-    //   }
-    // ]
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        options: {
+          cache: true,
+          emitErrors: true,
+          failOnError: true
+        }
+      }
+    ]
   }
 }
 
@@ -50,7 +51,12 @@ module.exports = (env) => {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          loader: 'babel-loader'
+          use: {
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-env"]
+            }
+          }
         }
       ]
     }
@@ -62,9 +68,15 @@ module.exports = (env) => {
       filename: 'module.min.js',
       sourceMapFilename: 'module.min.map',
     },
-    plugins: [
-      new BabiliPlugin()
-    ]
+    optimization: {
+      minimizer: [
+        new TerserPlugin({
+          exclude: /node_modules/,
+          cache: true,
+          parallel: true
+        })
+      ]
+    }
   }, customizer);
   
   const es6Config = merge(undefined, baseConfig, {
@@ -81,9 +93,15 @@ module.exports = (env) => {
       filename: 'module.es6.min.js',
       sourceMapFilename: 'module.es6.min.map'
     },
-    plugins: [
-      new BabiliPlugin()
-    ]
+    optimization: {
+      minimizer: [
+        new TerserPlugin({
+          exclude: /node_modules/,
+          cache: true,
+          parallel: true
+        })
+      ]
+    }
   })
   
   return [ es5Config, es5MinifiedConfig, es6Config, es6MinifiedConfig ];

@@ -46,17 +46,32 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
 /******/ 		}
 /******/ 	};
 /******/
 /******/ 	// define __esModule on exports
 /******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
 /******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
 /******/ 	};
 /******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -88,14 +103,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 /**
 * @name angular-jxon
@@ -112,7 +126,10 @@ if (typeof window.DOMParser === 'undefined') {
 * @class EmptyTree
 */
 
-var EmptyTree = function () {
+
+var EmptyTree =
+/*#__PURE__*/
+function () {
   /**
   * @constructs
   */
@@ -126,7 +143,7 @@ var EmptyTree = function () {
 
 
   _createClass(EmptyTree, [{
-    key: 'toString',
+    key: "toString",
     value: function toString() {
       return 'null';
     }
@@ -136,7 +153,7 @@ var EmptyTree = function () {
     */
 
   }, {
-    key: 'valueOf',
+    key: "valueOf",
     value: function valueOf() {
       return null;
     }
@@ -166,6 +183,7 @@ var cfg = {
 * @param {Mixed} vValue
 * @return {Object}
 */
+
 var objectify = function objectify(vValue) {
   return vValue === null ? new EmptyTree() : vValue instanceof Object ? vValue : new vValue.constructor(vValue);
 };
@@ -174,19 +192,25 @@ var objectify = function objectify(vValue) {
 * @param {Mixed} sValue
 * @return {Mixed}
 */
+
+
 var parseText = function parseText(sValue) {
   if (cfg.rIsNull.test(sValue)) {
     return null;
   }
+
   if (cfg.rIsBool.test(sValue)) {
     return sValue.toLowerCase() === 'true';
   }
+
   if (isFinite(sValue)) {
     return parseFloat(sValue);
   }
+
   if (cfg.sAutoDate && isFinite(Date.parse(sValue))) {
     return new Date(sValue);
   }
+
   return sValue;
 };
 /**
@@ -197,30 +221,38 @@ var parseText = function parseText(sValue) {
 * @param {Boolean} bNesteAttr 
 * @return {Object}
 */
+
+
 var createObjTree = function createObjTree(oParentNode, nVerb, bFreeze, bNesteAttr) {
   var nLevelStart = cfg.aCache.length,
       bChildren = oParentNode.hasChildNodes(),
       bAttributes = oParentNode.nodeType === oParentNode.ELEMENT_NODE && oParentNode.hasAttributes(),
       bHighVerb = Boolean(nVerb & 2);
-
-  var sProp = void 0,
-      vContent = void 0,
+  var sProp,
+      vContent,
       nLength = 0,
       sCollectedTxt = "",
-      vResult = bHighVerb ? {} : /* put here the default value for empty nodes: */true;
+      vResult = bHighVerb ? {} :
+  /* put here the default value for empty nodes: */
+  true;
 
   if (bChildren) {
     for (var oNode, nItem = 0; nItem < oParentNode.childNodes.length; nItem = nItem + 1) {
       oNode = oParentNode.childNodes.item(nItem);
+
       if (oNode.nodeType === 4) {
         sCollectedTxt += oNode.nodeValue;
-      } /* nodeType is "CDATASection" (4) */
+      }
+      /* nodeType is "CDATASection" (4) */
       else if (oNode.nodeType === 3) {
           sCollectedTxt += oNode.nodeValue.trim();
-        } /* nodeType is "Text" (3) */
+        }
+        /* nodeType is "Text" (3) */
         else if (oNode.nodeType === 1 && !(cfg.sIgnorePrefixed && oNode.prefix)) {
             cfg.aCache.push(oNode);
-          } /* nodeType is "Element" (1) */
+          }
+      /* nodeType is "Element" (1) */
+
     }
   }
 
@@ -235,10 +267,12 @@ var createObjTree = function createObjTree(oParentNode, nVerb, bFreeze, bNesteAt
     sProp = cfg.aCache[nElId].nodeName;
     if (cfg.sLowCase) sProp = sProp.toLowerCase();
     vContent = createObjTree(cfg.aCache[nElId], nVerb, bFreeze, bNesteAttr);
-    if (vResult.hasOwnProperty(sProp)) {
+
+    if (Object.prototype.hasOwnProperty.call(vResult, sProp)) {
       if (vResult[sProp].constructor !== Array) {
         vResult[sProp] = [vResult[sProp]];
       }
+
       vResult[sProp].push(vContent);
     } else {
       vResult[sProp] = vContent;
@@ -262,6 +296,7 @@ var createObjTree = function createObjTree(oParentNode, nVerb, bFreeze, bNesteAt
       if (bFreeze) {
         Object.freeze(oAttrParent);
       }
+
       vResult[cfg.sAttrProp] = oAttrParent;
       nLength -= nAttrLen - 1;
     }
@@ -278,7 +313,6 @@ var createObjTree = function createObjTree(oParentNode, nVerb, bFreeze, bNesteAt
   }
 
   cfg.aCache.length = nLevelStart;
-
   return vResult;
 };
 /**
@@ -287,12 +321,15 @@ var createObjTree = function createObjTree(oParentNode, nVerb, bFreeze, bNesteAt
 * @param {Object} oParentEl
 * @param {Object} oParentObj
 */
+
+
 var loadObjTree = function loadObjTree(oXMLDoc, oParentEl, oParentObj) {
-  var vValue = void 0,
-      oChild = void 0;
+  var vValue, oChild;
 
   if (oParentObj.constructor === String || oParentObj.constructor === Number || oParentObj.constructor === Boolean) {
-    oParentEl.appendChild(oXMLDoc.createTextNode(oParentObj.toString())); /* verbosity level is 0 or 1 */
+    oParentEl.appendChild(oXMLDoc.createTextNode(oParentObj.toString()));
+    /* verbosity level is 0 or 1 */
+
     if (oParentObj === oParentObj.valueOf()) {
       return;
     }
@@ -301,13 +338,16 @@ var loadObjTree = function loadObjTree(oXMLDoc, oParentEl, oParentObj) {
   }
 
   for (var sName in oParentObj) {
-    if (oParentObj.hasOwnProperty(sName)) {
-
+    if (Obejct.prototype.hasOwnProperty.call(oParentObj, sName)) {
       vValue = oParentObj[sName];
+
       if (isFinite(sName) || vValue instanceof Function) {
         continue;
-      } /* verbosity level is 0 */
+      }
+      /* verbosity level is 0 */
       // when it is _
+
+
       if (sName === cfg.sValueProp) {
         if (vValue !== null && vValue !== true) {
           oParentEl.appendChild(oXMLDoc.createTextNode(vValue.constructor === Date ? vValue.toGMTString() : String(vValue)));
@@ -315,7 +355,7 @@ var loadObjTree = function loadObjTree(oXMLDoc, oParentEl, oParentObj) {
       } else if (sName === cfg.sAttrProp) {
         /* verbosity level is 3 */
         for (var sAttrib in vValue) {
-          if (vValue.hasOwnProperty(sAttrib)) {
+          if (Object.prototype.hasOwnProperty.call(vValue, sAttrib)) {
             oParentEl.setAttribute(sAttrib, vValue[sAttrib]);
           }
         }
@@ -329,6 +369,7 @@ var loadObjTree = function loadObjTree(oXMLDoc, oParentEl, oParentObj) {
         }
       } else {
         oChild = oXMLDoc.createElementNS((vValue || {})[cfg.sAttrsPref + 'xmlns'] || oParentEl.namespaceURI, sName);
+
         if (vValue instanceof Object) {
           loadObjTree(oXMLDoc, oChild, vValue);
         } else if (vValue !== null && vValue !== true) {
@@ -336,6 +377,7 @@ var loadObjTree = function loadObjTree(oXMLDoc, oParentEl, oParentObj) {
         } else if (!cfg.sEmptyTrue && vValue === true) {
           oChild.appendChild(oXMLDoc.createTextNode(vValue.toString()));
         }
+
         oParentEl.appendChild(oChild);
       }
     }
@@ -345,7 +387,10 @@ var loadObjTree = function loadObjTree(oXMLDoc, oParentEl, oParentObj) {
 * @class JXONService
 */
 
-var JXONService = function () {
+
+var JXONService =
+/*#__PURE__*/
+function () {
   /**
   * @constructs
   */
@@ -360,7 +405,7 @@ var JXONService = function () {
 
 
   _createClass(JXONService, [{
-    key: 'xmlToString',
+    key: "xmlToString",
     value: function xmlToString(xmlObj) {
       if (typeof xmlObj.xml !== "undefined") {
         return xmlObj.xml;
@@ -373,7 +418,7 @@ var JXONService = function () {
     */
 
   }, {
-    key: 'build',
+    key: "build",
     value: function build(oXMLParent, nVerbosity, bFreeze, bNesteAttributes) {
       return this.xmlToJs(oXMLParent, nVerbosity, bFreeze, bNesteAttributes);
     }
@@ -387,7 +432,7 @@ var JXONService = function () {
     */
 
   }, {
-    key: 'jsToXml',
+    key: "jsToXml",
     value: function jsToXml(oObjTree, sNamespaceURI, sQualifiedName, oDocumentType) {
       var oNewDoc = window.document.implementation.createDocument(sNamespaceURI || null, sQualifiedName || "", oDocumentType || null);
       loadObjTree(oNewDoc, oNewDoc.documentElement || oNewDoc, oObjTree);
@@ -398,7 +443,7 @@ var JXONService = function () {
     */
 
   }, {
-    key: 'unbuild',
+    key: "unbuild",
     value: function unbuild(oObjTree, sNamespaceURI, sQualifiedName, oDocumentType) {
       return this.jsToXml(oObjTree, sNamespaceURI, sQualifiedName, oDocumentType);
     }
@@ -409,7 +454,7 @@ var JXONService = function () {
     */
 
   }, {
-    key: 'stringToXml',
+    key: "stringToXml",
     value: function stringToXml(xmlStr) {
       return new window.DOMParser().parseFromString(xmlStr, 'application/xml');
     }
@@ -423,7 +468,7 @@ var JXONService = function () {
     */
 
   }, {
-    key: 'jsToString',
+    key: "jsToString",
     value: function jsToString(oObjTree, sNamespaceURI, sQualifiedName, oDocumentType) {
       return this.xmlToString(this.jsToXml(oObjTree, sNamespaceURI, sQualifiedName, oDocumentType));
     }
@@ -432,8 +477,14 @@ var JXONService = function () {
     */
 
   }, {
-    key: 'stringify',
-    value: function stringify(oObjTree, sNamespaceURI /* optional */, sQualifiedName /* optional */, oDocumentType /* optional */) {
+    key: "stringify",
+    value: function stringify(oObjTree, sNamespaceURI
+    /* optional */
+    , sQualifiedName
+    /* optional */
+    , oDocumentType
+    /* optional */
+    ) {
       return this.jsToString(oObjTree, sNamespaceURI, sQualifiedName, oDocumentType);
     }
     /**
@@ -443,7 +494,7 @@ var JXONService = function () {
     */
 
   }, {
-    key: 'stringToJs',
+    key: "stringToJs",
     value: function stringToJs(str) {
       var xmlObj = this.stringToXml(str);
       return this.xmlToJs(xmlObj);
@@ -458,9 +509,12 @@ var JXONService = function () {
     */
 
   }, {
-    key: 'xmlToJs',
+    key: "xmlToJs",
     value: function xmlToJs(oXMLParent, nVerbosity, bFreeze, bNesteAttributes) {
-      var _nVerb = arguments.length > 1 && typeof nVerbosity === "number" ? nVerbosity & 3 : /* put here the default verbosity level: */1;
+      var _nVerb = arguments.length > 1 && typeof nVerbosity === "number" ? nVerbosity & 3 :
+      /* put here the default verbosity level: */
+      1;
+
       return createObjTree(oXMLParent, _nVerb, bFreeze || false, arguments.length > 3 ? bNesteAttributes : _nVerb === 3);
     }
   }]);
@@ -479,6 +533,8 @@ var Module = __webpack_require__(/*! angular */ "angular").module('angular-jxon'
 * @name $JXONProvider
 * @description Provider for the $JXON factory
 */
+
+
 Module.provider('$JXON', function JXONProvider() {
   /**
   * @ngdoc method
@@ -487,31 +543,38 @@ Module.provider('$JXON', function JXONProvider() {
   * @throws {InvalidArgumentException}
   */
   this.config = function (cfgObject) {
-    if ((typeof cfgObject === 'undefined' ? 'undefined' : _typeof(cfgObject)) === 'object') {
+    if (_typeof(cfgObject) === 'object') {
       for (var key in cfgObject) {
-        if (cfgObject.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(cfgObject, key)) {
           switch (key) {
             case 'valueKey':
               cfg.sValueProp = cfgObject.valueKey;
               break;
+
             case 'attrKey':
               cfg.sAttrProp = cfgObject.attrKey;
               break;
+
             case 'attrPrefix':
               cfg.sAttrsPref = cfgObject.attrPrefix;
               break;
+
             case 'lowerCaseTags':
               cfg.sLowCase = cfgObject.lowerCaseTags;
               break;
+
             case 'trueIsEmpty':
               cfg.sEmptyTrue = cfgObject.trueIsEmpty;
               break;
+
             case 'autoDate':
               cfg.sAutoDate = cfgObject.autoDate;
               break;
+
             case 'ignorePrefixedNodes':
               cfg.sIgnorePrefixed = cfgObject.ignorePrefixedNodes;
               break;
+
             default:
               break;
           }
@@ -525,6 +588,8 @@ Module.provider('$JXON', function JXONProvider() {
   * @function $get
   * @return {Object} JXONService
   */
+
+
   this.$get = function JXONFactory() {
     return new JXONService();
   };

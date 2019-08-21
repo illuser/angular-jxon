@@ -1,0 +1,22 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "camelcase": ["error", true],
+    "eqeqeq": ["error", true],
+    "freeze": ["error", true],
+    "wrap-iife": ["error", true],
+    "indent": ["error", 2],
+    "no-plusplus": true,
+    "no-undef": true,
+    "strict": ["error", "global"],
+    "semi": ["error", "always"]
+  }
+}
