@@ -175,6 +175,7 @@ stringToJSON === jsonDoc;
 
 ## Change Log
 
+* v0.3.0 - Switching from JSHint to ESLint. Updating dev-dependencies and fixing security audits. Switching from babel-minify to Terser. Adding package-lock.json
 * v0.2.0 - Updating dependencies.
 * v0.1.1 - Added missing (.babelrc). Fixed Plunkr example.
 * v0.1.0 - Bumped minor version. Updated dependencies. Removed testing infastructure since dependencies no longer were being maintained. Removed Gulp in favor a standalone Webpack build.
