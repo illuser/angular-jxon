@@ -2,6 +2,11 @@
 
 [![npm version](https://badge.fury.io/js/angular-jxon.svg)](http://badge.fury.io/js/angular-jxon)
 
+## Deprecation Warning
+Updates to this repository will cease as of `0.4.0.` Angular 1 is
+sufficiently improper to use in comparison to newer versions of Angular to
+continue use of this package.
+
 An AngularJS provider for Mozilla's JXON library (as implemented by [https://github.com/tyrasd](https://github.com/tyrasd/jxon))
 
 ## Install
@@ -175,6 +180,7 @@ stringToJSON === jsonDoc;
 
 ## Change Log
 
+* v0.4.0 - Deprecating and archiving project.
 * v0.2.0 - Updating dependencies.
 * v0.1.1 - Added missing (.babelrc). Fixed Plunkr example.
 * v0.1.0 - Bumped minor version. Updated dependencies. Removed testing infastructure since dependencies no longer were being maintained. Removed Gulp in favor a standalone Webpack build.

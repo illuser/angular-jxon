@@ -14,22 +14,7 @@ const baseConfig = {
   externals:[{
     angular: true
   }],
-  devtool: 'source-map',
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        options: {
-          cache: true,
-          emitErrors: true,
-          failOnError: true
-        }
-      }
-    ]
-  }
+  devtool: 'source-map'
 }
 
 const customizer = (destVal, srcVal) => {

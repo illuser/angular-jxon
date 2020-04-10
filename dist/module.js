@@ -103,7 +103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -127,9 +127,7 @@ if (typeof window.DOMParser === 'undefined') {
 */
 
 
-var EmptyTree =
-/*#__PURE__*/
-function () {
+var EmptyTree = /*#__PURE__*/function () {
   /**
   * @constructs
   */
@@ -388,9 +386,7 @@ var loadObjTree = function loadObjTree(oXMLDoc, oParentEl, oParentObj) {
 */
 
 
-var JXONService =
-/*#__PURE__*/
-function () {
+var JXONService = /*#__PURE__*/function () {
   /**
   * @constructs
   */
